@@ -1,16 +1,16 @@
 {
   "log": {
     "disabled": false,
-    "level": "info",
-    "output": "",
-    "timestamp": false
+    "level": "debug",
+    "output": "sing-box.log",
+    "timestamp": true
   },
   "experimental": {
     "clash_api": {
       "external_controller": "127.0.0.1:20123",
-      "external_ui": "",
-      "external_ui_download_url": "",
-      "external_ui_download_detour": "🎯 全球直连",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "全球直连",
       "secret": "110",
       "default_mode": "rule",
       "access_control_allow_origin": [
@@ -61,9 +61,15 @@
   "outbounds": [
     {
       "type": "selector",
-      "tag": "🚀 节点选择",
+      "tag": "节点选择",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇭🇰 香港",
+        "🇸🇬 新加坡",
+        "🇨🇳 台湾",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ]
     },
     {
       "type": "urltest",
@@ -76,7 +82,7 @@
     },
     {
       "type": "urltest",
-      "tag": "🇹🇼 台湾",
+      "tag": "🇨🇳 台湾",
       "interrupt_exist_connections": true,
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
@@ -112,12 +118,12 @@
     },
     {
       "type": "selector",
-      "tag": "✈️ Telegram",
+      "tag": "Telegram",
       "interrupt_exist_connections": true,
       "outbounds": [
-        "🚀 节点选择",
+        "节点选择",
         "🇭🇰 香港",
-        "🇹🇼 台湾",
+        "🇨🇳 台湾",
         "🇸🇬 新加坡",
         "🇯🇵 日本",
         "🇺🇸 美国"
@@ -125,12 +131,12 @@
     },
     {
       "type": "selector",
-      "tag": "🤖 AI",
+      "tag": "AI",
       "interrupt_exist_connections": true,
       "outbounds": [
-        "🚀 节点选择",
+        "节点选择",
         "🇭🇰 香港",
-        "🇹🇼 台湾",
+        "🇨🇳 台湾",
         "🇸🇬 新加坡",
         "🇯🇵 日本",
         "🇺🇸 美国"
@@ -138,15 +144,15 @@
     },
     {
       "type": "direct",
-      "tag": "🎯 全球直连"
+      "tag": "全球直连"
     },
     {
       "type": "selector",
-      "tag": "🐟 漏网之鱼",
+      "tag": "最终分流",
       "interrupt_exist_connections": true,
       "outbounds": [
-        "🚀 节点选择",
-        "🎯 全球直连"
+        "节点选择",
+        "全球直连"
       ]
     },
     {
@@ -154,11 +160,11 @@
       "tag": "GLOBAL",
       "interrupt_exist_connections": true,
       "outbounds": [
-        "🚀 节点选择",
-        "🎯 全球直连",
-        "🐟 漏网之鱼"
+        "节点选择",
+        "全球直连",
+        "最终分流"
       ]
-    }
+    },
   ],
   "route": {
     "rules": [
@@ -183,7 +189,7 @@
       {
         "action": "route",
         "clash_mode": "direct",
-        "outbound": "🎯 全球直连"
+        "outbound": "全球直连"
       },
       {
         "action": "route",
@@ -195,14 +201,14 @@
         "rule_set": [
           "GeoSite-Private"
         ],
-        "outbound": "🎯 全球直连"
+        "outbound": "全球直连"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoIP-Private"
         ],
-        "outbound": "🎯 全球直连"
+        "outbound": "全球直连"
       },
       {
         "action": "route",
@@ -211,7 +217,7 @@
           "Claude",
           "Gemini"
         ],
-        "outbound": "🤖 AI"
+        "outbound": "AI"
       },
       {
         "action": "route",
@@ -219,35 +225,42 @@
           "Telegram",
           "Telegram_IP"
         ],
-        "outbound": "✈️ Telegram"
+        "outbound": "Telegram"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Apple"
+        ],
+        "outbound": "全球直连"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoLocation-CN"
         ],
-        "outbound": "🎯 全球直连"
+        "outbound": "全球直连"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoSite-CN"
         ],
-        "outbound": "🎯 全球直连"
+        "outbound": "全球直连"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoIP-CN"
         ],
-        "outbound": "🎯 全球直连"
+        "outbound": "全球直连"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoLocation-!CN"
         ],
-        "outbound": "🐟 漏网之鱼"
+        "outbound": "最终分流"
       }
     ],
     "rule_set": [
@@ -256,110 +269,117 @@
         "type": "remote",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-cn.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "OpenAI",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-openai.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "Claude",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-anthropic.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "Gemini",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google-gemini.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "Telegram",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-telegram.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
+      },
+      {
+        "tag": "Apple",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-apple.srs",
+        "format": "binary",
+        "download_detour": "节点选择"
       },
       {
         "tag": "Telegram_IP",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/lyc8503/sing-box-rules/refs/heads/rule-set-geoip/geoip-telegram.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "Category-Ads",
         "type": "remote",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "GeoIP-Private",
         "type": "remote",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/private.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "GeoSite-Private",
         "type": "remote",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "GeoIP-CN",
         "type": "remote",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "GeoSite-CN",
         "type": "remote",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       },
       {
         "tag": "GeoLocation-!CN",
         "type": "remote",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
         "format": "binary",
-        "download_detour": "🚀 节点选择"
+        "download_detour": "节点选择"
       }
     ],
     "auto_detect_interface": true,
-    "final": "🚀 节点选择"
+    "final": "节点选择"
   },
   "dns": {
     "servers": [
       {
         "tag": "Local-DNS",
         "address": "tls://223.5.5.5:853",
-        "detour": "🎯 全球直连"
+        "detour": "全球直连"
       },
       {
         "tag": "Local-DNS-Resolver",
         "address": "udp://223.5.5.5:53",
-        "detour": "🎯 全球直连"
+        "detour": "全球直连"
       },
       {
         "tag": "Remote-DNS",
         "address": "tls://8.8.8.8:853",
-        "detour": "🚀 节点选择"
+        "detour": "节点选择"
       },
       {
         "tag": "Remote-DNS-Resolver",
         "address": "udp://8.8.8.8:53",
-        "detour": "🚀 节点选择"
+        "detour": "节点选择"
       }
     ],
     "rules": [
@@ -404,5 +424,6 @@
     "disable_expire": false,
     "independent_cache": false,
     "final": "Local-DNS-Resolver"
-  }
+  },
+  "endpoints": []
 }
